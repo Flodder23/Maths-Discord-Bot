@@ -31,8 +31,7 @@ module.exports = {
 		"\u{1f1fe}",
 		"\u{1f1ff}"
 	],
-	"yes_react": "593464052957577216",
-	"no_react": "593464111988211712",
 	"ok_hand": "👌",
 	"thumbs_down": "👎"
+	"thumbs_up": "👍"
 }

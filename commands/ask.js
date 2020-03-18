@@ -26,10 +26,10 @@ class AskCommand extends Command {
 				start = message.member.nickname + ` (${name})`
 			}
 			let sent = await message.channel.send(`**${start}** asked: ${args.message}`);
-			await sent.react(config.yes_react);
-			sent.react(config.no_react);
+			await sent.react(config.thumbs_up);
+			await sent.react(config.thumbs_down);
 		}
-		message.delete();
+		await message.delete();
 	}
 }
 
