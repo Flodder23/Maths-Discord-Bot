@@ -1,6 +1,6 @@
 const { Listener } = require("discord-akairo");
 const config = require("../config.js");
-const isUnit = /MATH[0-9]{5}/
+const isUnit = /[0-9]{5}/g
 
 class UnitRoleListener extends Listener {
 	constructor() {
@@ -16,25 +16,24 @@ class UnitRoleListener extends Listener {
 	async exec(message) {
 		if (this.client.testMode != (message.guild.name != "Lonely Joe") && !message.author.bot) {
 			if (message.channel.name == "unit-roles") {
-				let found_unit = false;
-				for (let line of message.content.split("\n")) {
-					for (let word of line.split(" ")) {
-						word = word.toUpperCase()
-						if (isUnit.test(word)) {
-							for (let role of message.guild.roles) {
-								if (role[1].name == word) {
-									await message.member.addRole(role[1])
-									found_unit = true;
-									break
-								}
+				let possUnits = message.content.match(isUnit);
+				if (possUnits == null) {
+					await message.react(config.thumbs_down);
+				} else {
+					let found_unit = false;
+					for (let role of message.guild.roles) {
+						for (let unit of possUnits) {
+							if (role[1].name.endsWith(unit)) {
+								await message.member.addRole(role[1]);
+								found_unit = true;
 							}
 						}
 					}
-				}
-				if(found_unit) {
-					await message.react(config.ok_hand);
-				} else {
-					await message.react(config.thumbs_down);
+					if (found_unit) {
+						await message.react(config.ok_hand);
+					} else {
+						await message.react(config.thumbs_down);
+					}
 				}
 			}
 		}
