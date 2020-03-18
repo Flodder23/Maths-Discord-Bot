@@ -32,6 +32,6 @@ module.exports = {
 		"\u{1f1ff}"
 	],
 	"ok_hand": "👌",
-	"thumbs_down": "👎"
+	"thumbs_down": "👎",
 	"thumbs_up": "👍"
 }
