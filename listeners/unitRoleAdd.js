@@ -14,8 +14,8 @@ class UnitRoleListener extends Listener {
 	}
 
 	async exec(message) {
-		for (let guild of this.client.guilds) {
-			if (this.client.testMode != (guild[1].name != "Lonely Joe")) {
+		if (this.client.testMode != (guild[1].name != "Lonely Joe")) {
+			for (let guild of this.client.guilds) {
 				if (message.channel.name=="unit-roles") {
 					let found_unit = false;
 					for (let line of message.content.split("\n")) {
