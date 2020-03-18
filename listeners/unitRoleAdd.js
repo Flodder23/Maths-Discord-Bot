@@ -24,7 +24,7 @@ class UnitRoleListener extends Listener {
 							if (isUnit.test(word)) {
 								for (let role of message.guild.roles) {
 									if (role[1].name == word) {
-										message.member.addRole(role[1])
+										await message.member.addRole(role[1])
 										found_unit = true;
 										break
 									}
@@ -33,9 +33,9 @@ class UnitRoleListener extends Listener {
 						}
 					}
 					if(found_unit) {
-						message.react(config.ok_hand);
+						await message.react(config.ok_hand);
 					} else {
-						message.react(config.thumbs_down);
+						await message.react(config.thumbs_down);
 					}
 				}
 			}
