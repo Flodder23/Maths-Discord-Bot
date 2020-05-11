@@ -1,29 +1,43 @@
 const { Command } = require("discord-akairo");
 const Discord = require("discord.js");
 
+const commandInfo = {
+	id: "avatar",
+	aliases: ["pic"],
+	args: [{id: "member", type: "member"}],
+	description: {
+		short: "Shows avatar of selected user.",
+		extend: "If no user is given, it shows the avatar of the user who called the command.",
+	}
+}
+
+commandInfo.aliases.unshift(commandInfo.id)
+commandInfo.description.long = commandInfo.description.short + "\n" + commandInfo.description.extend
+commandInfo.description.args = commandInfo.args.map(item => item.id)
+
 class AvatarCommand extends Command {
 	constructor() {
-		super("avatar", {
-			aliases: ["avatar", "pic"],
-			args: [{id: "member", type: "member"}],
-			description: "Shows avatar of selected user.\nIf no user is given, it shows the avatar of the user who called the command."});
+		super(
+			commandInfo.id,
+			commandInfo
+		);
 	}
 
 	exec(message, args) {
 		let desc;
 		if (message.content.split(" ").length == 1) {
 			args.member = message.member
-			desc = "No user was given, so showing your avatar:";
+			desc = "Showing your avatar:";
 		} else {
 			desc = `Showing ${args.member}'s avatar:`;
 		}
 		if (args.member) {
-			message.channel.send(new Discord.RichEmbed()
+			return message.channel.send(new Discord.MessageEmbed()
 				.setDescription(desc)
 				.setColor(16426522)
-				.setImage(args.member.user.avatarURL));
+				.setImage(args.member.user.avatarURL()));
 		} else {
-			message.reply("Sorry, couldn't find that user.")
+			return message.reply("Sorry, couldn't find that user.")
 		}
 	}
 }

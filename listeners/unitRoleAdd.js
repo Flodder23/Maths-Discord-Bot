@@ -5,26 +5,26 @@ const isUnit = /[0-9]{5}/g
 class UnitRoleListener extends Listener {
 	constructor() {
 		super(
-			"message",
+			"unitRole",
 			{
 				emitter: "client",
-				eventName: "message"
+				event: "message"
 			}
 		);
 	}
 
 	async exec(message) {
-		if (this.client.testMode != (message.guild.name != "Lonely Joe") && !message.author.bot) {
+		if (message.channel.type != "dm" && !message.member.bot && (this.client.testMode == (message.guild.name == "Lonely Joe"))) {
 			if (message.channel.name == "unit-roles") {
 				let possUnits = message.content.match(isUnit);
 				if (possUnits == null) {
 					await message.react(config.thumbs_down);
 				} else {
 					let found_unit = false;
-					for (let role of message.guild.roles) {
+					for (let role of message.guild.roles.cache) {
 						for (let unit of possUnits) {
 							if (role[1].name.endsWith(unit)) {
-								await message.member.addRole(role[1]);
+								await message.member.roles.add(role[1]);
 								found_unit = true;
 							}
 						}
