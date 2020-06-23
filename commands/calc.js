@@ -1,13 +1,12 @@
 const { Command } = require("discord-akairo");
 const WolframAlphaAPI = require('wolfram-alpha-api');
-
 let waKey;
 try {
-	const waKey = require("../waKey.json").key;
+	waKey = require("../waKey.json").key;
 	console.log("Using locally stored Wolfram|Alpha token");
 }
 catch(error) {
-	token = process.env.WATOKEN;
+	waKey = process.env.WATOKEN;
 	console.log("Starting using Wolfram|Alpha token stored on Heroku...");
 }
 const waApi = WolframAlphaAPI(waKey);
