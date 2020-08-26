@@ -23,4 +23,4 @@ class WelcomeListener extends Listener {
 	}
 }
 
-module.exports = WelcomeListener;
+//module.exports = WelcomeListener;
