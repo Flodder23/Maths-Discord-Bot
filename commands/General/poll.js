@@ -1,7 +1,7 @@
 const { Command } = require("discord-akairo")
 const Discord = require("discord.js")
 const config = require("../../config.js")
-const { getPing } = require("../../functions.js")
+const { constructCommandInfo, getPing } = require("../../functions.js")
 
 const commandInfo = {
 	id: "poll",
@@ -19,7 +19,11 @@ const commandInfo = {
 commandInfo.aliases.unshift(commandInfo.id)
 commandInfo.description.long = commandInfo.description.short + "\n" + commandInfo.description.extend
 commandInfo.description.args = commandInfo.args.map(item => item.id)
-commandInfo.category = __dirname.split("\\").pop()
+if (__dirname.includes("/")) {
+	commandInfo.category = __dirname.split("/").pop()
+} else {
+	commandInfo.category = __dirname.split("\\").pop()
+}
 
 class PollCommand extends Command {
 	constructor() {

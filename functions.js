@@ -1,4 +1,15 @@
 module.exports = {
+	constructCommandInfo: function (info, dir) {
+		info.aliases.unshift(info.id)
+		info.description.long = info.description.short + "\n" + info.description.extend
+		info.description.args = info.args.map(item => item.id)
+		if (dir.includes("/")) {
+			info.category = dir.split("/").pop()
+		} else {
+			info.category = dir.split("\\").pop()
+		}
+		return info
+	},
 	getPing: function (str, guild) {
 		if (str.match(/^<@(&|!?)\d{17,19}>$/)) {  // if it's already a ping
 			return str
@@ -31,27 +42,5 @@ module.exports = {
 			}
 		}
 		return null
-	},
-	linkToMessage: function (link, guild) {
-		link = link.split("/")
-		if (link.length < 3) {
-			return "Invalid link."
-		}
-		let [guildID, channelID, messageID] = link.slice(start=link.length - 3)
-		if (guildID == guild.id) {
-			let channel = guild.channels.resolve(channelID)
-			if (channel) {
-				let message = channel.messages.resolve(messageID)
-				if (message) {
-					return message
-				} else {
-					return "Message not found."
-				}
-			} else {
-				return "Channel not found."
-			}
-		} else {
-			return "Server ID does not match."
-		}
 	}
 }
