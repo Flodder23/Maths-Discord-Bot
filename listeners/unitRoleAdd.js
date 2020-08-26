@@ -15,7 +15,7 @@ class UnitRoleListener extends Listener {
 	async exec(message) {
 		if (message.channel.type != "dm" && !message.member.user.bot && (this.client.testMode == (message.guild.name == "Lonely Joe"))) {
 			if (message.channel.name == "unit-names") {
-				let possUnits = message.content.match(/[0-9]{5}/g);
+				let possUnits = message.content.match(/\d{5}/g);
 				if (possUnits == null) {
 					await message.react(config.thumbs_down);
 				} else {
