@@ -13,6 +13,7 @@ const commandInfo = {
 commandInfo.aliases.unshift(commandInfo.id)
 commandInfo.description.long = commandInfo.description.short + "\n" + commandInfo.description.extend
 commandInfo.description.args = commandInfo.args.map(item => item.id)
+commandInfo.category = __dirname.split("\\").pop()
 
 class rpsCommand extends Command {
 	constructor() {
@@ -23,6 +24,9 @@ class rpsCommand extends Command {
 	}
 
 	exec(message, args) {
+		if (!args.choice) {
+			return message.reply("Please make a choice (rock, paper or scissors)")
+		}
 		let player_choice = args.choice.toLowerCase();
 		if (!["rock", "paper", "scissors"].includes(player_choice)) {
 			return message.reply("Please make a legit choice (rock, paper or scissors)")

@@ -1,6 +1,5 @@
 const { Listener } = require("discord-akairo");
 const config = require("../config.js");
-const isUnit = /[0-9]{5}/g
 
 class UnitRoleListener extends Listener {
 	constructor() {
@@ -14,9 +13,9 @@ class UnitRoleListener extends Listener {
 	}
 
 	async exec(message) {
-		if (message.channel.type != "dm" && !message.member.bot && (this.client.testMode == (message.guild.name == "Lonely Joe"))) {
-			if (message.channel.name == "unit-roles") {
-				let possUnits = message.content.match(isUnit);
+		if (message.channel.type != "dm" && !message.member.user.bot && (this.client.testMode == (message.guild.name == "Lonely Joe"))) {
+			if (message.channel.name == "unit-names") {
+				let possUnits = message.content.match(/[0-9]{5}/g);
 				if (possUnits == null) {
 					await message.react(config.thumbs_down);
 				} else {
@@ -35,6 +34,7 @@ class UnitRoleListener extends Listener {
 						await message.react(config.thumbs_down);
 					}
 				}
+				return await message.delete({ timeout: 3000 })
 			}
 		}
 	}

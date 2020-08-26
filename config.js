@@ -1,8 +1,14 @@
 module.exports = {
-	"prefix": "=",
-	"colour": 16426522,
-	"owner_id": 286601488703291395,
-	"emoji_letters": [
+	prefix: "=",
+	testPrefix: "-",
+	colour: 16426522,
+	owner_id: 286601488703291395,
+	categoryInfo: {
+		"Admin": "These commands help manage the server's roles, channels etc.",
+		"General": "These are commands which didn't really fit into a specific category.",
+		"Info": "These commands get information about various parts of the server."
+	},
+	emoji_letters: [
 		"\u{1f1e6}",
 		"\u{1f1e7}",
 		"\u{1f1e8}",
@@ -30,7 +36,7 @@ module.exports = {
 		"\u{1f1fe}",
 		"\u{1f1ff}"
 	],
-	"ok_hand": "👌",
-	"thumbs_down": "👎",
-	"thumbs_up": "👍"
+	ok_hand: "👌",
+	thumbs_down: "👎",
+	thumbs_up: "👍"
 }

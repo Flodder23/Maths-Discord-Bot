@@ -13,6 +13,7 @@ const commandInfo = {
 commandInfo.aliases.unshift(commandInfo.id)
 commandInfo.description.long = commandInfo.description.short + "\n" + commandInfo.description.extend
 commandInfo.description.args = commandInfo.args.map(item => item.id)
+commandInfo.category = __dirname.split("\\").pop()
 
 class ChooseCommand extends Command {
 	constructor() {
@@ -23,9 +24,6 @@ class ChooseCommand extends Command {
 	}
 
 	exec(message, args) {
-		if (!args.options) {
-			return message.reply("You need to give me options to choose from")
-		}
 		let options = args.options.split(";").map(item => item.trim());
 		let fillers = ["I choose... ", "I'd go for", "Fate has spoken... It has chosen", "What about", "The best option is", "Obviously"]
 		let d = 0;
@@ -35,7 +33,7 @@ class ChooseCommand extends Command {
 				d ++;
 			}
 		}
-		if (options.length < 2) {
+		if (options.length == 0) {
 			return message.reply("Something went wrong - options should be seperated by a semi-colon, like this: `option 1; option 2; option 3` etc.")
 		} else {
 			return message.reply([fillers, options].map(list => list[Math.floor(list.length * Math.random())]).join(" "));

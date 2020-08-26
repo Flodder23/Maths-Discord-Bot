@@ -14,6 +14,7 @@ const commandInfo = {
 commandInfo.aliases.unshift(commandInfo.id)
 commandInfo.description.long = commandInfo.description.short + "\n" + commandInfo.description.extend
 commandInfo.description.args = commandInfo.args.map(item => item.id)
+commandInfo.category = __dirname.split("\\").pop()
 
 class AvatarCommand extends Command {
 	constructor() {
@@ -27,7 +28,7 @@ class AvatarCommand extends Command {
 		let desc;
 		if (message.content.split(" ").length == 1) {
 			args.member = message.member
-			desc = "Showing your avatar:";
+			desc = "No user was given, so showing your avatar:";
 		} else {
 			desc = `Showing ${args.member}'s avatar:`;
 		}

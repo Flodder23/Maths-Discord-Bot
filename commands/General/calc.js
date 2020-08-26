@@ -1,8 +1,8 @@
 const { Command } = require("discord-akairo");
-const WolframAlphaAPI = require('wolfram-alpha-api');
+const WolframAlphaAPI = require("wolfram-alpha-api");
 let waKey;
 try {
-	waKey = require("../waKey.json").key;
+	waKey = require("../../waKey.json").key;
 	console.log("Using locally stored Wolfram|Alpha token");
 }
 catch(error) {
@@ -25,6 +25,7 @@ const commandInfo = {
 commandInfo.aliases.unshift(commandInfo.id)
 commandInfo.description.long = commandInfo.description.short + "\n" + commandInfo.description.extend
 commandInfo.description.args = commandInfo.args.map(item => item.id)
+commandInfo.category = __dirname.split("\\").pop()
 
 class CalcCommand extends Command {
 	constructor() {
@@ -45,6 +46,7 @@ class CalcCommand extends Command {
 							`${firstSubpod ? `**${pod.title}**` : ""}\n\`${subpod.plaintext}\``,
 							{
 								embed: {
+									color: 16426522,
 									image: {
 										url: subpod.img.src
 									}

@@ -4,3 +4,4 @@ commands/debug.js
 test.js
 package-lock.json
 waKey.json
+commands/Admin/
