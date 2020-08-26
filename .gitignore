@@ -1,6 +1,6 @@
 token.json
 node_modules/
-commands/debug.js
+commands/General/debug.js
 test.js
 package-lock.json
 waKey.json
