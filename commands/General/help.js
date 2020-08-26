@@ -54,7 +54,7 @@ class HelpCommand extends Command {
 				fields: [
 					{
 						name: " -- Roles -- ",
-						value: `React to the message in ${message.guild.channels.cache.find(c => c.name == "server-info")} to get a role.`
+						value: `Send a messages containing the codes for your courses into <#748240971140956170> to get a role.`
 					}, {
 						name: " ---- COMMANDS ---- ",
 						value: `Type \`${this.client.commandHandler.prefix}help <command>\` for more information on a command.`
