@@ -15,24 +15,26 @@ class UnitRoleListener extends Listener {
 	async exec(message) {
 		if (message.channel.type != "dm" && !message.member.user.bot && (this.client.testMode == (message.guild.name == "Lonely Joe"))) {
 			if (message.channel.name == "unit-names") {
-				let possUnits = message.content.match(/\d{5}/g);
-				if (possUnits == null) {
-					await message.react(config.thumbs_down);
-				} else {
-					let found_unit = false;
-					for (let role of message.guild.roles.cache) {
-						for (let unit of possUnits) {
-							if (role[1].name.endsWith(unit)) {
-								await message.member.roles.add(role[1]);
-								found_unit = true;
-							}
-						}
-					}
-					if (found_unit) {
-						await message.react(config.ok_hand);
+				let toAdd = [],
+					toRemove = []
+				for (let unit of message.content.match(/\d{5}/g)) {
+					let role = message.guild.roles.cache.find(r => r.name.includes(unit))
+					if (message.member.roles.cache.has(role.id)) {
+						toRemove.push(role)
 					} else {
-						await message.react(config.thumbs_down);
+						toAdd.push(role)
 					}
+				}
+				if (toAdd.length == 0) {
+					if (toRemove.length == 0) {
+						await message.react(config.thumbs_down)
+					} else {
+						message.member.roles.remove(toRemove)
+						await message.react(config.ok_hand)
+					}
+				} else {
+					message.member.roles.add(toAdd)
+					await message.react(config.ok_hand)
 				}
 				return await message.delete({ timeout: 3000 })
 			}
