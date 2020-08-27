@@ -14,7 +14,7 @@ class WelcomeListener extends Listener {
 	async exec(member) {
 		if (this.client.testMode == (member.guild.name == "Lonely Joe")) {
 			if (!member.user.bot) {
-				await member.roles.add(member.guild.roles.cache.filter(r => r.name == "Student" || r.name.includes("═")))
+				await member.roles.add(member.guild.roles.cache.find(r => r.name == "Student"))
 			}
 		}
 	}
