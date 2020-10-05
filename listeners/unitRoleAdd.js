@@ -21,10 +21,12 @@ class UnitRoleListener extends Listener {
 				if (possUnits) {
 					for (let unit of possUnits) {
 						let role = message.guild.roles.cache.find(r => r.name.includes(unit))
-						if (message.member.roles.cache.has(role.id)) {
-							toRemove.push(role)
-						} else {
-							toAdd.push(role)
+						if (role) {
+							if (message.member.roles.cache.has(role.id)) {
+								toRemove.push(role)
+							} else {
+								toAdd.push(role)
+							}
 						}
 					}
 				}
