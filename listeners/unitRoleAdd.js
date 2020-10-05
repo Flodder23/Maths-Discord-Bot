@@ -16,13 +16,16 @@ class UnitRoleListener extends Listener {
 		if (message.channel.type != "dm" && !message.member.user.bot && (this.client.testMode == (message.guild.name == "Lonely Joe"))) {
 			if (message.channel.name == "unit-names") {
 				let toAdd = [],
-					toRemove = []
-				for (let unit of message.content.match(/\d{5}/g)) {
-					let role = message.guild.roles.cache.find(r => r.name.includes(unit))
-					if (message.member.roles.cache.has(role.id)) {
-						toRemove.push(role)
-					} else {
-						toAdd.push(role)
+					toRemove = [],
+					possUnits = message.content.match(/\d{5}/g)
+				if (possUnits) {
+					for (let unit of possUnits) {
+						let role = message.guild.roles.cache.find(r => r.name.includes(unit))
+						if (message.member.roles.cache.has(role.id)) {
+							toRemove.push(role)
+						} else {
+							toAdd.push(role)
+						}
 					}
 				}
 				if (toAdd.length == 0) {
