@@ -1,16 +1,19 @@
-const { Listener } = require('discord-akairo');
+const { Listener } = require("discord-akairo");
 
 class SeparatorRoleCheckListener extends Listener {
-    constructor() {
-        super('separatorRoleCheck', {
-            emitter: 'client',
-            event: 'guildMemberUpdate'
-        });
-    }
+	constructor() {
+		super(
+			"separatorRoleCheck",
+			{
+				emitter: "client",
+				event: "guildMemberUpdate"
+			}
+		);
+	}
 
-    async exec(oldMember, newMember) {
-    	if (this.client.testMode == (newMember.guild.name == "Lonely Joe")) {
-	    	let separatorRequired = false
+	async exec(oldMember, newMember) {
+		if (this.client.testMode == (newMember.guild.name == "Lonely Joe")) {
+			let separatorRequired = false
 			for(let [id, role] of newMember.guild.roles.cache.sort((a, b) => a.rawPosition - b.rawPosition)) {
 				if (role.name.includes("═")) {
 					if (separatorRequired && !newMember.roles.cache.has(id)) {

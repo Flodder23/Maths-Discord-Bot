@@ -22,11 +22,12 @@ class ReadyListener extends Listener {
 			output += "Started in normal mode\n"
 		}
 		for (let [, guild] of this.client.guilds.cache.filter(g => this.client.testMode != (g.name != "Lonely Joe"))) {
-			if (guild.channels.cache.some(c => c.name == "unit-roles")) {
-				output += `Found unit-roles channel for ${guild.name}\n`
+			await guild.members.fetch()
+			if (guild.channels.cache.some(c => c.name == "add-units")) {
+				output += `Found #add-units channel for ${guild.name}\n`
 			}
 			if (!ownerUser) {
-				let ownerMember = await guild.members.cache.find(m => m.id == this.client.ownerID)
+				let ownerMember = guild.members.cache.find(m => m.id == this.client.ownerID)
 				if (ownerMember) {
 					ownerUser = ownerMember.user
 				}
@@ -58,11 +59,11 @@ class ReadyListener extends Listener {
 		}
 		return await this.client.user.setPresence(
 			{
+				status: "online",
 				activity: {
 					name: "=help",
 					type: "LISTENING"
-				},
-				status: "online"
+				}
 			}
 		)
 	}
