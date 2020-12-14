@@ -61,9 +61,11 @@ class AskCommand extends Command {
 		)
 		await sent.react(config.thumbs_up);
 		await sent.react(config.thumbs_down);
+		/*
 		if (message.channel.type != "dm" && !this.client.testMode) {
 			return await message.delete();
 		}
+		*/
 	}
 }
 
