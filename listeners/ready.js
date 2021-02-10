@@ -23,15 +23,26 @@ class ReadyListener extends Listener {
 		}
 		for (let [, guild] of this.client.guilds.cache.filter(g => this.client.testMode != (g.name != "Lonely Joe"))) {
 			await guild.members.fetch()
-			if (guild.channels.cache.some(c => c.name == "add-units")) {
-				output += `Found #add-units channel for ${guild.name}\n`
-			}
 			if (!ownerUser) {
 				let ownerMember = guild.members.cache.find(m => m.id == this.client.ownerID)
 				if (ownerMember) {
 					ownerUser = ownerMember.user
 				}
 			}
+			let units_channels = 0
+			for (let [, channel] of guild.channels.cache) {
+				if (channel.name == "add-units") {
+					units_channels ++
+				}
+				if (channel.id == "689441192639070281") {
+					for (let [, message] of await channel.messages.fetch({ limit: 100 })) {
+						if (message.id == "809065442223456257") {
+							output += `Found socials message for ${guild.name}\n`
+						}
+					}
+				}
+			}
+			output += `Found ${units_channels} #add-units channel(s) for ${guild.name}\n`
 		}
 		output = output.trim()
 		if (this.client.testMode) {
