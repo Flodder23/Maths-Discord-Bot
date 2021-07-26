@@ -34,7 +34,7 @@ class ReadyListener extends Listener {
 				if (channel.name == "add-units") {
 					units_channels ++
 				}
-				if (channel.id == "689441192639070281") {
+				if (channel.name == "server-info") {
 					for (let [, message] of await channel.messages.fetch({ limit: 100 })) {
 						if (message.id == "809065442223456257") {
 							output += `Found socials message for ${guild.name}\n`
